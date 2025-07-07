@@ -30,7 +30,7 @@ M_sun = 1.989e30  # in kg
 
 # Intial position and velocity of the earth
 r_0 = np.array([147.1e9, 0])  # m
-v_0 = np.array([0, 30.29e3]) #m/s
+v_0 = np.array([0, -30.29e3]) #m/s
 
 # Time steps and total time for simulation 
 dt = 3600 # secs
@@ -47,3 +47,10 @@ v = np.empty(shape=(len(t), 2))
 
 # set the initial conditions for position and velocity
 r[0], v[0] = r_0 , v_0
+
+#Define the function that gets us the accn vector when passeed in the position vector
+def accn(r):
+     return (-G*M_sun / np.linalg.norm(r)**3) * r
+
+print(accn(r_0))
+
