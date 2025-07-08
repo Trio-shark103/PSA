@@ -83,4 +83,4 @@ pos_aphelion= np.max(sizes)
 arg_aphelion = np.argmax(sizes)
 vel_aphelion = np.linalg.norm(v[arg_aphelion])
 
-print(pos_aphelion, vel_aphelion)
+print(pos_aphelion/1e9, vel_aphelion/1e3)
