@@ -29,8 +29,9 @@ RED = (188, 39, 50)
 class PlanetaryBodies:
 
     AU = 1.496e11 # Astronomical unit ( distance from the sun to the earth)
-    SCALE = 300/AU
-    G = 6.6743e-11
+    SCALE = 300/AU # Scale the size of the body to either big or small
+    G = 6.6743e-11 # Gravitational constant
+    TIME_STEP = 24*3600 # Convert 24hrs to seconds
 
 
     # constructor 
@@ -41,6 +42,11 @@ class PlanetaryBodies:
         self.y = y
         self.mass = mass
         self.radius = radius
+        
+
+        self.x_vel = 0
+        self.y_vel = 0
+        self.orbit = []
 
     
     # Method 1 - draw the bodies on the simulator 
@@ -62,6 +68,24 @@ class PlanetaryBodies:
 
         return f_x, f_y
     
+    #Method 3 - Update the Position 
+    def update_position(self , pl_bodies):   
+        net_fx, net_fy = 0, 0
+        for pl_body in pl_bodies:
+            if self != pl_body:
+                f_x, f_y = self.gravitational_force(pl_body)
+                net_fx += f_x
+                net_fy += f_y
+        self.x_vel += net_fx / self.mass * self.TIME_STEP
+        self.y_vel += net_fy / self.mass * self.TIME_STEP
+        self.x += self.x_vel * self.TIME_STEP
+        self.y += self.y_vel * self.TIME_STEP
+        self.orbit.append((self.x, self.y))
+            
+
+
+
+
 # Stars List with Color , Cneter and Radius information
 stars_list = [
     {
