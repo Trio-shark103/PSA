@@ -30,6 +30,7 @@ class PlanetaryBodies:
 
     AU = 1.496e11 # Astronomical unit ( distance from the sun to the earth)
     SCALE = 300/AU
+    G = 6.6743e-11
 
 
     # constructor 
@@ -48,8 +49,19 @@ class PlanetaryBodies:
         y = self.y*PlanetaryBodies.SCALE + HEIGHT//2
         pg.draw.circle(surface=WINDOW,color=self.color,center=(x,y), radius=self.radius)
 
+    #Method 2- Calculation for the gravitational force 
+    def gravitational_force (self, pl_body):
+        # F= GMm/r^2
+        x_diff = pl_body.x - self.x
+        y_diff = pl_body.y -self.y
+        distance = math.sqrt(x_diff**2 + y_diff**2)
+        g_force = self.G* self.mass * pl_body.mass / distance**2
+        theta = math.atan2(y_diff /x_diff)  # atan2 takes in input values and into the account of the directions 
+        f_x = g_force*math.cos(theta)
+        f_y = g_force*math.sin(theta)
 
-
+        return f_x, f_y
+    
 # Stars List with Color , Cneter and Radius information
 stars_list = [
     {
