@@ -62,7 +62,7 @@ class PlanetaryBodies:
         y_diff = pl_body.y -self.y
         distance = math.sqrt(x_diff**2 + y_diff**2)
         g_force = self.G* self.mass * pl_body.mass / distance**2
-        theta = math.atan2(y_diff /x_diff)  # atan2 takes in input values and into the account of the directions 
+        theta = math.atan2(y_diff, x_diff)  # atan2 takes in input values and into the account of the directions 
         f_x = g_force*math.cos(theta)
         f_y = g_force*math.sin(theta)
 
@@ -108,12 +108,21 @@ run=True
 
 sun = PlanetaryBodies("Sun", YELLOW, 0, 0, 1.989e30, 30 )
 mercury=PlanetaryBodies("Mercury", GRAY, 0.39*PlanetaryBodies.AU, 0, 0.33E24, 6 )
+mercury.y_vel= -47.4e3
 venus = PlanetaryBodies("Venus", YELLOWISH_WHITE, 0.72*PlanetaryBodies.AU, 0, 4.87e24, 14)
+venus.y_vel = -35e3
 earth = PlanetaryBodies("Earth", BLUE, 1*PlanetaryBodies.AU, 0, 5.97E24, 15)
+earth.y_vel = -29.8e3
 mars = PlanetaryBodies("Mars", RED, 1.52*PlanetaryBodies.AU, 0, 0.642e24, 8)
+mars.y_vel = -24.1e3
 
+
+# Set the Frame Per Second(FPS) for the simulation 
+FPS = 60
+clock = pg.time.Clock()
 
 while run:
+    clock.tick(FPS)
     WINDOW.fill(BLACK)
     draw_stars(stars_list)
 
@@ -122,6 +131,7 @@ while run:
             run=False
     Pl_bodies = [sun, mercury, venus, earth, mars]  
     for body in Pl_bodies:
+        body.update_position(Pl_bodies)
         body.draw_body(WINDOW)  
     pg.display.update()
 
