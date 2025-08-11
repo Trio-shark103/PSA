@@ -1,20 +1,20 @@
-#standard library imports
-import math 
+"""Imports"""
+
+# Standard Library Imports
+import math
 from random import randint
 
-
-# Third-party Library imports
+# Third-party Library Imports
 import pygame as pg
 
 # Local Imports
-from simulation import simulation_parameters, simulator
+from simulation import get_screen_size, create_pygame_window, set_simulation_fonts, simulator
 from stars import generate_stars
 from parameters import SIMULATION_FPS, TRACK_ORBIT
 from parameters import BODY_FONT_NAME, DISTANCE_FONT_NAME, PAUSE_FONT_NAME
 from parameters import BODY_FONT_SIZE, DISTANCE_FONT_SIZE, PAUSE_FONT_SIZE
 from create_bodies import solar_system_bodies
 from colors import *
-
 
 """Solar System Simulator using PyGame"""
 
